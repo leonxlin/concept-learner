@@ -13,9 +13,9 @@ NEG = Symbol("!")
 TRUE = Symbol("True")
 FALSE = Symbol("False")
 
-DNF_COMMON_RULES = {S: [(DISJ,), (TRUE,), (FALSE,)],
-    DISJ: [(P,), (CONJ, DISJ)],
-    CONJ: [(P,), (P, CONJ)],
+DNF_COMMON_RULES = {S: [(DISJ,)],
+    DISJ: [(FALSE,), (CONJ, DISJ)],
+    CONJ: [(TRUE,), (P, CONJ)],
     P: [(FEATURE,), (NEG, FEATURE)],
     FEATURE: [],
     NEG: [()],
