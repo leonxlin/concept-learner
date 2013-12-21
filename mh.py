@@ -2,12 +2,14 @@
 # Metropolis-Hastings module
 
 def mh(proposer, accept, nsamples=1000):
-    # proposer(None) = a starter sample
-    # proposer(sample) = another sample
-    # accept(sample, proposal) = a boolean
-    # nsamples = number of samples to take
-    #
-    # mh(nsamples, proposer, accept) = list of nsamples hypotheses
+    """ 
+    proposer(None) = a starter sample
+    proposer(sample) = another sample
+    accept(sample, proposal) = a boolean
+    nsamples = number of samples to take
+    
+    mh(nsamples, proposer, accept) = list of nsamples hypotheses
+    """
 
     samples = [proposer(None)]
     for i in xrange(nsamples - 1):
