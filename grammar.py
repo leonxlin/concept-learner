@@ -34,7 +34,7 @@ class Formula:
 
     def __str__(self):
         if self.expansion:
-            return "".join(map(str, self.expansion))
+            return self.head.joiner.join(map(str, self.expansion))
         else:
             return str(self.head)
 
@@ -42,8 +42,9 @@ class Formula:
         return str(self)
 
 class Symbol:
-    def __init__(self, s):
+    def __init__(self, s, joiner=""):
         self.s = s
+        self.joiner = joiner
     def __str__(self):
         return self.s
     def __repr__(self):

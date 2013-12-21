@@ -3,11 +3,8 @@ import grammar
 
 S = grammar.Symbol("S")
 
-DISJ = grammar.Symbol("DISJ")
-CONJ = grammar.Symbol("CONJ")
-
-OR = grammar.Symbol(" | ")
-AND = grammar.Symbol("&")
+DISJ = grammar.Symbol("DISJ", " | ")
+CONJ = grammar.Symbol("CONJ", "&")
 
 T = grammar.Symbol("T")
 P = grammar.Symbol("P")
@@ -17,10 +14,8 @@ TRUE = grammar.Symbol("True")
 FALSE = grammar.Symbol("False")
 
 rules = {S: [(DISJ,)],
-    DISJ: [(FALSE,), (CONJ, OR, DISJ)],
-    CONJ: [(TRUE,), (T, AND, CONJ)],
-    OR: [()],
-    AND: [()],
+    DISJ: [(FALSE,), (CONJ, DISJ)],
+    CONJ: [(TRUE,), (T, CONJ)],
     T: [(P,), (Q,)],
     P: [()],
     Q: [()],
