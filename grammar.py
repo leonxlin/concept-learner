@@ -26,7 +26,7 @@ class Grammar:
 
     def prior(self, formula):
         """Gives the prior probability P(F|G) of a formula F,
-        agnostic with regard to the probability probabilities: P(F|G) =
+        agnostic with regard to the production probabilities: P(F|G) =
         the integral of P(F, t|G) over production probabilities t. This
         is equal to the product of beta(C_Y(F) + 1)/beta(1) over all
         non-terminal symbols Y in the derivation of F, where C_Y(F) is
