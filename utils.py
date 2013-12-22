@@ -14,6 +14,8 @@ def betaln(alphas):
 
     return sum(map(gammaln, alphas)) - gammaln(sum(alphas))
 
+# CACHE_HITS = 0
+
 def memoize(obj):
     """Memoization decorator from PythonDecoratorLibrary. Ignores
     **kwargs"""
@@ -24,6 +26,9 @@ def memoize(obj):
     def memoizer(*args, **kwargs):
         if args not in cache:
             cache[args] = obj(*args, **kwargs)
+        # else:
+        #     import utils
+        #     utils.CACHE_HITS += 1
         return cache[args]
     return memoizer
 
