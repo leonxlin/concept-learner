@@ -3,6 +3,7 @@ import math
 import random
 import utils
 import numpy
+from bisect import bisect_left
 
 class Grammar:
 
@@ -38,7 +39,8 @@ class Grammar:
             + [self._prob(f) for f in formula.expansion])
         
     def regenerate_subtree(self, formula):
-        pass
+        """Returns a new Formula with a random subtree of formula
+        regenerated"""
 
     def random_formula(self, start=None):
         """Generates a random formula by repeatedly applying
@@ -101,6 +103,25 @@ class Formula:
 
         self.head = head
         self.expansion = expansion
+
+        self.size = 1 + sum([f.size for f in expansion])
+        self.size_no_leaves = (1 if expansion else 0)\
+            + sum([f.size_no_leaves for f in expansion])
+
+    def random_subtree(self):
+        r = random.randint(1, self.size_no_leaves)
+        index = bisect_left(self._cum_sizes_no_leaves(), r)
+        if index == 0:
+            return self
+        else:
+            return self.expansion[index-1].random_subtree()
+        
+    @utils.memoize
+    def _cum_sizes_no_leaves(self):
+        cum = [1]
+        for f in self.expansion:
+            cum.append(cum[-1] + f.size_no_leaves)
+        return cum
 
     def __str__(self):
         if self.expansion:
