@@ -42,6 +42,11 @@ class Grammar:
         """Returns a new Formula with a random subtree of formula
         regenerated"""
 
+        trail = formula.random_trail()
+        head = formula.subtree(trail).head
+        return formula.replace_subtree(trail,
+            self.random_formula(head))
+
     def random_formula(self, start=None):
         """Generates a random formula by repeatedly applying
         production rules. For a given symbol, a rule is picked uniformly
