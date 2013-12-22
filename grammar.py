@@ -108,14 +108,38 @@ class Formula:
         self.size_no_leaves = (1 if expansion else 0)\
             + sum([f.size_no_leaves for f in expansion])
 
-    def random_subtree(self):
+    def random_trail(self):
+        """Returns a list of indices of expansions, which when
+        followed starting from self points to a subtree of the formula"""
+
         r = random.randint(1, self.size_no_leaves)
-        index = bisect_left(self._cum_sizes_no_leaves(), r)
-        if index == 0:
-            return self
+        index = bisect_left(self._cum_sizes_no_leaves(), r) - 1
+        if index == -1:
+            return []
         else:
-            return self.expansion[index-1].random_subtree()
-        
+            return [index] + self.expansion[index].random_trail()
+
+    def subtree(self, trail):
+        """Returns the subtree (a Formula) corresponding to a
+        trail of expansion indices"""
+
+        if not trail:
+            return self
+        return self.expansion[trail[0]].subtree(trail[1:])
+
+    def replace_subtree(self, trail, formula):
+        """Returns a new Formula identical to self except for the
+        subtree at trail, which is replaced with formula"""
+
+        if not trail:
+            return formula
+
+        expansion = tuple([f.replace_subtree(trail[1:], formula)\
+            if trail[0]==i else f\
+            for i, f in enumerate(self.expansion)])
+
+        return Formula(self.head, expansion)
+
     @utils.memoize
     def _cum_sizes_no_leaves(self):
         cum = [1]
