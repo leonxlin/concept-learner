@@ -1,6 +1,7 @@
 
 import math
 import grammar
+import random
 
 # Metropolis-Hastings module
 
@@ -43,5 +44,5 @@ def regen_accept(world):
             + math.log(formula.size_no_leaves)\
             - math.log(formula2.size_no_leaves)\
             + G.log_prob(formula) - G.log_prob(formula2)
-        return math.exp(log_ratio)
+        return random.random() < math.exp(log_ratio)
     return accept
