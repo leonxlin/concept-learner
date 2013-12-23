@@ -24,6 +24,15 @@ class DNF(Grammar):
 
         Grammar.__init__(self, rules, S)
 
+    def true_formula(self):
+        """Returns a formula that is always true, i.e., guaranteed to have
+        a nonzero posterior"""
+
+        true_conj = Formula(CONJ, (Formula(TRUE),))
+        false_disj = Formula(DISJ, (Formula(FALSE),))
+        true_disj = Formula(DISJ, (true_conj, false_disj))
+        return Formula(S, (true_disj,))
+
     @utils.memoize
     def evaluate(self, formula, obj):
         """Evaluate the formula at obj (boolean)"""

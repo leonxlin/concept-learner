@@ -27,3 +27,6 @@ class BinaryFeatureWorld(object):
         symbols = [dnf.PredicateSymbol(str(feat),
             feature_decider(feat)) for feat in features]
         self.grammar = dnf.DNF(symbols)
+
+
+

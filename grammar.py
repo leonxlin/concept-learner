@@ -25,11 +25,13 @@ class Grammar(object):
         assumes a uniform distribution sigma over the production rules
         for a given nonterminal symbol."""
         
+        return math.exp(self.log_prob(formula))
+
+    def log_prob(self, formula):
         profile = self.rule_profile(formula)
         symbol_counts = [sum(profile[symbol].values())
             for symbol in self._symbol_list]
-        probln = -numpy.dot(self._ln_rule_counts, symbol_counts)
-        return math.exp(probln)
+        return -numpy.dot(self._ln_rule_counts, symbol_counts)
 
     @utils.memoize
     def _prob(self, formula):
@@ -77,7 +79,6 @@ class Grammar(object):
 
         return counts
 
-    @utils.memoize
     def prior(self, formula):
         """Gives the prior probability P(F|G) of a formula F,
         agnostic with regard to the production probabilities: P(F|G) =
@@ -87,16 +88,22 @@ class Grammar(object):
         the vector of counts of the production rules used for Y and beta
         is the multinomial beta function."""
 
+        return math.exp(self.log_prior(formula))
+
+    @utils.memoize
+    def log_prior(self, formula):
+
         counts = self.rule_profile(formula)
 
-        priorln = 0
+        ans = 0
         for symbol in counts:
             alphas = [counts[symbol][rewrite] + 1
                 for rewrite in counts[symbol]]
             one = [1]*len(alphas)
-            priorln += utils.betaln(alphas) - utils.betaln(one)
+            ans += utils.betaln(alphas) - utils.betaln(one)
 
-        return math.exp(priorln)
+        return ans
+        
 
 
 @utils.memoize
