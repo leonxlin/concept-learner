@@ -5,7 +5,7 @@ import utils
 import numpy
 from bisect import bisect_left
 
-class Grammar:
+class Grammar(object):
 
     def __init__(self, rules, start):
         """rules is a dictionary mapping Symbols to lists of
@@ -100,7 +100,7 @@ class Grammar:
 
 
 @utils.memoize
-class Formula:
+class Formula(object):
     """Stores the parse-tree of a formula"""
 
     def __init__(self, head, expansion=()):
@@ -162,8 +162,7 @@ class Formula:
         return str(self)
 
 
-@utils.memoize
-class Symbol:
+class Symbol(object):
     def __init__(self, s, joiner=""):
         self.s = s
         self.joiner = joiner

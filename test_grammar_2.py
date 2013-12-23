@@ -3,7 +3,7 @@
 import grammar
 import dnf
 
-G = dnf.DNF(["a", "b"])
+G = dnf.DNF(["a", "b"]) # dumb primitives; don't allow evaluation
 
 for i in xrange(10):
     f = G.random_formula()
