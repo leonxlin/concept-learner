@@ -23,7 +23,7 @@ globe = Obj("globe", frozenset(["round", "hard"]))
 world = World(features,
     set([apple, orange, blood, ball, bird, redblock, pot,
          bottle, mouse, redblock, table, book, grape, chinaflag, globe]),
-    set([apple, orange, ball, pot, globe]))
+    set([blood, book, table, chinaflag, mouse]))
 
 G = world.grammar
 f = G.random_formula()
