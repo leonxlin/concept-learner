@@ -2,4 +2,7 @@
 *.swp
 *.swo
 *.pyc
-
+*.aux
+*.bbl
+*.blg
+*.log

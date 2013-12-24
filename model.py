@@ -90,19 +90,22 @@ class BinaryFeatureLearnerModel(object):
 
     @utils.memoize
     def log_likelihood(self, formula):
-        
-        count = 0
-        outliers = 0
-        
-        for obj in self.world.objects:
-            if self.grammar.evaluate(formula, obj):
-                count += 1
-            elif obj in self.world.concept:
-                outliers += 1
-                # return -float('Inf')
 
-        return -utils.binomln(count, len(self.world.concept))\
-            - (0 if outliers==0 else outliers*self.outlier_param)
+        W = self.world
+        
+        concept = set([obj for obj in W.objects
+            if self.grammar.evaluate(formula, obj)])
+        not_concept = W.objects - concept
+        observed = W.observed_pos | W.observed_neg
+
+        n_wrong = len(W.observed_pos & not_concept)\
+            + len(W.observed_neg & concept)
+
+        return -utils.binomln(len(concept), len(observed & concept))\
+            - utils.binomln(len(not_concept), len(observed - concept))\
+            - (0 if n_wrong==0 else n_wrong*self.outlier_param)
+                # conditional necessary since self.outlier_param could
+                # be inf
 
     def likelihood(self, formula):
         """P(world|formula)"""

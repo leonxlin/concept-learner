@@ -1,10 +1,10 @@
 
 
-import test_world
+import test_medin_schaffer as test_world
 from model import BinaryFeatureLearnerModel as Model
 import mh
 
-model = Model(test_world.world, outlier_param=4)
+model = Model(test_world.world, outlier_param=2)
 
 G = model.grammar
 f = G.random_formula()
@@ -24,6 +24,6 @@ for x in model.top_formulas():
     print G.prior(x[0])*model.likelihood(x[0])
     print
 
-for obj in model.world.objects:
-    print obj, model.prob_in_concept(obj, 10)
+for obj in sorted(model.world.objects, key=lambda obj: obj.name):
+    print obj, model.prob_in_concept(obj)
 

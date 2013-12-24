@@ -39,5 +39,7 @@ def factorialln(n):
 
 @memoize
 def binomln(n, k):
+    if n==0 and k==0:
+        return 0
     return factorialln(n) - factorialln(k) - factorialln(n-k)
 

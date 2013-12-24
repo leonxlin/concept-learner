@@ -13,13 +13,14 @@ class BinaryFeatureObject(object):
 
 class BinaryFeatureWorld(object):
 
-    def __init__(self, features, objects, concept):
+    def __init__(self, features, objects, observed_pos, observed_neg=[]):
         """features is a set of strings; objects is a list of
         BinaryFeatureObjects; concept is a set of objects"""
 
-        self.features = features
-        self.objects = objects 
-        self.concept = concept
+        self.features = set(features)
+        self.objects = set(objects)
+        self.observed_pos = set(observed_pos)
+        self.observed_neg = set(observed_neg)
 
 
 
