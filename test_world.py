@@ -22,6 +22,9 @@ globe = Obj("globe", frozenset(["round", "hard"]))
 world = World(features,
     set([apple, orange, blood, ball, bird, redblock, pot,
          bottle, mouse, redblock, table, book, grape, chinaflag, globe]),
-    set([apple, ball, bottle, table, globe]))
+    # set([apple, ball, bottle, table, globe])
+    # set([apple, orange, ball, pot, bottle, redblock, table, book, globe])
+    set([apple, orange, grape])
+    )
 
 

@@ -19,9 +19,43 @@ class BinaryFeatureLearnerModel(object):
             feature_decider(feat)) for feat in world.features]
         self.grammar = dnf.DNF(symbols)
 
+        self.samples = {} # {sample: count for each sample}
+
     def sample_formulas(self, n=30000):
+        """Sample n formulas from the posterior using Metropolis-Hastings.
+        Result is returned and stored in self.samples"""
         
-        return mh.mh(self._regen_proposer(), self._regen_accept(), n)
+        self.samples = {}
+
+        for f in mh.mh(self._regen_proposer(), self._regen_accept(), n):
+            if f not in self.samples:
+                self.samples[f] = 0
+            self.samples[f] += 1
+
+        return self.samples
+
+    def prob_in_concept(self, obj, use_only_top=utils.MAXSIZE):
+        """Return the probability that obj is in the concept,
+        according to self.samples. Only the top use_only_top formulas from
+        self.sample will be used; if use_only_top is not set."""
+
+        if not self.samples:
+            raise error("prob_in_concept called before formulas sampled")
+
+        yes = 0
+        total = 0
+        for f, count in self.top_formulas(use_only_top):
+            if self.grammar.evaluate(f, obj):
+                yes += count
+            total += count
+        return float(yes)/total
+        
+
+    def top_formulas(self, k=5):
+        """Return list of (formula, count) pairs for k most frequent
+        formulas in self.samples"""
+
+        return sorted(self.samples.items(), key=lambda (f, c): -c)[:k]
 
     def _regen_proposer(self):
 

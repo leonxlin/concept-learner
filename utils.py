@@ -3,6 +3,7 @@ import math
 import functools
 from scipy.special import gammaln
 from bisect import bisect_left
+from sys import maxsize as MAXSIZE
 
 # CACHE_HITS = 0
 

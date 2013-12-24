@@ -18,13 +18,12 @@ print
 print "top formulas:"
 print
 
-samples = model.sample_formulas()
-profile = {}
-for h in samples:
-    if h not in profile:
-        profile[h] = 0
-    profile[h] += 1
-for x in sorted(profile.items(), key=lambda (h, n): -n)[:5]:
+model.sample_formulas()
+for x in model.top_formulas():
     print x
     print G.prior(x[0])*model.likelihood(x[0])
     print
+
+for obj in model.world.objects:
+    print obj, model.prob_in_concept(obj, 10)
+
