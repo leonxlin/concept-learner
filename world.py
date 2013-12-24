@@ -21,12 +21,6 @@ class BinaryFeatureWorld(object):
         self.objects = objects 
         self.concept = concept
 
-        def feature_decider(feat):
-            return lambda obj, e: feat in obj.features
-
-        symbols = [dnf.PredicateSymbol(str(feat),
-            feature_decider(feat)) for feat in features]
-        self.grammar = dnf.DNF(symbols)
 
 
 

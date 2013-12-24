@@ -45,24 +45,6 @@ class DNF(Grammar):
 
         return formula.head.meaning(obj,
             [self.evaluate(f, obj) for f in formula.expansion])
-
-    @utils.memoize
-    def log_likelihood(self, formula, world):
-        
-        count = 0
-        
-        for obj in world.objects:
-            if self.evaluate(formula, obj):
-                count += 1
-            elif obj in world.concept:
-                return -float('Inf')
-
-        return -utils.binomln(count, len(world.concept))
-
-    def likelihood(self, formula, world):
-        """P(world|formula)"""
-
-        return math.exp(self.log_likelihood(formula, world))
         
 
 

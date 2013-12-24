@@ -1,7 +1,6 @@
 
 from world import BinaryFeatureObject as Obj
 from world import BinaryFeatureWorld as World
-import mh
 
 features = frozenset(["red", "round", "hard"])
 apple = Obj("apple", frozenset(["red", "round", "hard"]))
@@ -23,20 +22,6 @@ globe = Obj("globe", frozenset(["round", "hard"]))
 world = World(features,
     set([apple, orange, blood, ball, bird, redblock, pot,
          bottle, mouse, redblock, table, book, grape, chinaflag, globe]),
-    set([blood, book, table, chinaflag, mouse]))
+    set([apple, ball, bottle, table, globe]))
 
-G = world.grammar
-f = G.random_formula()
-print f
-print {obj: G.evaluate(f, obj) for obj in world.objects}
-print G.log_likelihood(f, world)
 
-samples = mh.mh(mh.regen_proposer(G), mh.regen_accept(world), 100000)
-profile = {}
-for h in samples:
-    if h not in profile:
-        profile[h] = 0
-    profile[h] += 1
-for x in sorted(profile.items(), key=lambda (h, n): -n)[:5]:
-    print x
-    print G.prior(x[0])*G.likelihood(x[0], world)
