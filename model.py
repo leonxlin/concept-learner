@@ -8,8 +8,12 @@ import random
 
 class BinaryFeatureLearnerModel(object):
 
-    def __init__(self, world):
+    def __init__(self, world, outlier_param=float('Inf')):
+        """exp(-outlier_param) is the probability that an observation
+        is to be discounted"""
+
         self.world = world
+        self.outlier_param = outlier_param
 
         # define grammar
 
@@ -88,14 +92,17 @@ class BinaryFeatureLearnerModel(object):
     def log_likelihood(self, formula):
         
         count = 0
+        outliers = 0
         
         for obj in self.world.objects:
             if self.grammar.evaluate(formula, obj):
                 count += 1
             elif obj in self.world.concept:
-                return -float('Inf')
+                outliers += 1
+                # return -float('Inf')
 
-        return -utils.binomln(count, len(self.world.concept))
+        return -utils.binomln(count, len(self.world.concept))\
+            - (0 if outliers==0 else outliers*self.outlier_param)
 
     def likelihood(self, formula):
         """P(world|formula)"""

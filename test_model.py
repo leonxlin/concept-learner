@@ -4,7 +4,7 @@ import test_world
 from model import BinaryFeatureLearnerModel as Model
 import mh
 
-model = Model(test_world.world)
+model = Model(test_world.world, outlier_param=4)
 
 G = model.grammar
 f = G.random_formula()
