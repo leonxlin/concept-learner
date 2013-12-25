@@ -1,10 +1,10 @@
 
 
-import test_medin_schaffer as test_world
+import animal_world as test_world
 from model import BinaryFeatureLearnerModel as Model
 import mh
 
-model = Model(test_world.world, outlier_param=2)
+model = Model(test_world.world, outlier_param=7)
 
 G = model.grammar
 f = G.random_formula()
@@ -18,7 +18,7 @@ print
 print "top formulas:"
 print
 
-model.sample_formulas()
+model.sample_formulas(3000)
 for x in model.top_formulas():
     print x
     print G.prior(x[0])*model.likelihood(x[0])

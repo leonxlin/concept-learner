@@ -17,6 +17,9 @@ def mh(proposer, accept, nsamples=1000):
 
     samples = [proposer(None)]
     for i in xrange(nsamples - 1):
+        if i%1000 == 0:
+            print 'on sample', i
+
         proposal = proposer(samples[-1])
         if accept(samples[-1], proposal):
             samples.append(proposal)

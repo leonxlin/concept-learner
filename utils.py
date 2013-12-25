@@ -29,6 +29,7 @@ def beta(alphas):
 
     return math.exp(betaln(alphas))
 
+@memoize
 def betaln(alphas):
 
     return sum(map(gammaln, alphas)) - gammaln(sum(alphas))

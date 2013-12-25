@@ -18,7 +18,6 @@ class Grammar(object):
         self._ln_rule_counts = numpy.log([len(rules[s])
             for s in self._symbol_list])
 
-    @utils.memoize
     def prob(self, formula):
         """Gives the probability P(F|G, sigma) that
         random_formula returns F=formula. Note that random_formula
@@ -27,6 +26,7 @@ class Grammar(object):
         
         return math.exp(self.log_prob(formula))
 
+    @utils.memoize
     def log_prob(self, formula):
         profile = self.rule_profile(formula)
         symbol_counts = [sum(profile[symbol].values())
@@ -97,9 +97,9 @@ class Grammar(object):
 
         ans = 0
         for symbol in counts:
-            alphas = [counts[symbol][rewrite] + 1
-                for rewrite in counts[symbol]]
-            one = [1]*len(alphas)
+            alphas = tuple([counts[symbol][rewrite] + 1
+                for rewrite in counts[symbol]])
+            one = (1,)*len(alphas)
             ans += utils.betaln(alphas) - utils.betaln(one)
 
         return ans
