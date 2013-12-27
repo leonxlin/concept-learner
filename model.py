@@ -65,7 +65,7 @@ class BinaryFeatureLearnerModel(object):
 
         def proposer(formula):
             if formula is None:
-                return self.grammar.true_formula()
+                return self.grammar.random_formula()
             formula2 = formula
             while formula2 == formula:
                 formula2 = self.grammar.regenerate_subtree(formula)
@@ -101,6 +101,8 @@ class BinaryFeatureLearnerModel(object):
         n_wrong = len(W.observed_pos & not_concept)\
             + len(W.observed_neg & concept)
 
+        #return -utils.binomln(len(concept), len(observed & concept))\
+        #    - (0 if n_wrong==0 else n_wrong*self.outlier_param)
         return -utils.binomln(len(concept), len(observed & concept))\
             - utils.binomln(len(not_concept), len(observed - concept))\
             - (0 if n_wrong==0 else n_wrong*self.outlier_param)

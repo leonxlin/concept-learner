@@ -1,10 +1,15 @@
 
 
-import animal_world as test_world
+# Take your pick:
+#import animal_world as test_world
+#import medin_schaffer_world as test_world
+import numbers_world as test_world
+
 from model import BinaryFeatureLearnerModel as Model
 import mh
 
-model = Model(test_world.world, outlier_param=7)
+# model = Model(test_world.world, outlier_param=2)
+model = Model(test_world.world)
 
 G = model.grammar
 f = G.random_formula()
@@ -18,12 +23,13 @@ print
 print "top formulas:"
 print
 
-model.sample_formulas(3000)
+model.sample_formulas(10000)
 for x in model.top_formulas():
     print x
     print G.prior(x[0])*model.likelihood(x[0])
     print
 
-for obj in sorted(model.world.objects, key=lambda obj: obj.name):
-    print obj, model.prob_in_concept(obj)
+for frac, obj in sorted([(model.prob_in_concept(obj, use_only_top=10), obj)
+        for obj in model.world.objects], key=lambda (frac, obj): -frac):
+    print "%3f"%frac, obj
 

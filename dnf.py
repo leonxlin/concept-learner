@@ -24,14 +24,14 @@ class DNF(Grammar):
 
         Grammar.__init__(self, rules, S)
 
-    def true_formula(self):
-        """Returns a formula that is always true, i.e., guaranteed to have
-        a nonzero posterior"""
-
-        true_conj = Formula(CONJ, (Formula(TRUE),))
-        false_disj = Formula(DISJ, (Formula(FALSE),))
-        true_disj = Formula(DISJ, (true_conj, false_disj))
-        return Formula(S, (true_disj,))
+#    def true_formula(self):
+#        """Returns a formula that is always true, i.e., guaranteed to have
+#        a nonzero posterior"""
+#
+#        true_conj = Formula(CONJ, (Formula(TRUE),))
+#        false_disj = Formula(DISJ, (Formula(FALSE),))
+#        true_disj = Formula(DISJ, (true_conj, false_disj))
+#        return Formula(S, (true_disj,))
 
     @utils.memoize
     def evaluate(self, formula, obj):
@@ -50,10 +50,10 @@ class DNF(Grammar):
 
 S = PredicateSymbol("S", lambda obj, e: e[0])
 DISJ = PredicateSymbol("DISJ",
-    lambda obj, e: e[0] if len(e)==1 else e[0] or e[1],
+    lambda obj, e: any(e),
     " | ")
 CONJ = PredicateSymbol("CONJ",
-    lambda obj, e: e[0] if len(e)==1 else e[0] and e[1],
+    lambda obj, e: all(e),
     "&")
 P = PredicateSymbol("P",
     lambda obj, e: e[0] if len(e)==1 else not e[1])
@@ -65,10 +65,11 @@ TRUE = PredicateSymbol("True", lambda obj, e: True)
 FALSE = PredicateSymbol("False", lambda obj, e: False)
 
 DNF_COMMON_RULES = {S: [(DISJ,)],
-    DISJ: [(FALSE,), (CONJ, DISJ)],
-    CONJ: [(TRUE,), (P, CONJ)],
-    P: [(PRIMITIVE,), (NEG, PRIMITIVE)],
-    PRIMITIVE: [],
+    DISJ: [(CONJ,), (CONJ, DISJ)],
+    CONJ: [(P,), (P, CONJ)],
+    #P: [(PRIMITIVE,), (NEG, P)],
+    P: [(PRIMITIVE,)],
+    PRIMITIVE: [(TRUE,)],
     NEG: [()],
     TRUE: [()],
     FALSE: [()]}
