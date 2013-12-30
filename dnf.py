@@ -15,9 +15,9 @@ class PredicateSymbol(Symbol):
 
 class DNF(Grammar):
     
-    def __init__(self, primitives):
+    def __init__(self, primitives, rules):
 
-        rules = DNF_COMMON_RULES
+        rules = {x: rules[x] for x in rules} # copy
         for primitive in primitives:
             rules[primitive] = [()]
             rules[PRIMITIVE].append((primitive,))
@@ -64,12 +64,28 @@ NEG = PredicateSymbol("!",
 TRUE = PredicateSymbol("True", lambda obj, e: True)
 FALSE = PredicateSymbol("False", lambda obj, e: False)
 
-DNF_COMMON_RULES = {S: [(DISJ,)],
-    DISJ: [(CONJ,), (CONJ, DISJ)],
-    CONJ: [(P,), (P, CONJ)],
-    #P: [(PRIMITIVE,), (NEG, P)],
-    P: [(PRIMITIVE,)],
-    PRIMITIVE: [(TRUE,)],
-    NEG: [()],
-    TRUE: [()],
-    FALSE: [()]}
+RULE_SETS = [
+    {S: [(DISJ,)],
+        DISJ: [(FALSE,), (CONJ, DISJ)],
+        CONJ: [(TRUE,), (P, CONJ)],
+        P: [(PRIMITIVE,), (NEG, PRIMITIVE)],
+        PRIMITIVE: [], # expanded in DNF.__init__
+        NEG: [()],
+        TRUE: [()],
+        FALSE: [()]},
+    {S: [(DISJ,)], # decrease the weight of TRUE and FALSE in the prior
+        DISJ: [(CONJ,), (CONJ, DISJ)],
+        CONJ: [(P,), (P, CONJ)],
+        P: [(PRIMITIVE,), (NEG, PRIMITIVE)],
+        PRIMITIVE: [(TRUE,)], # expanded in DNF.__init__
+        NEG: [()],
+        TRUE: [()],
+        FALSE: [()]},
+    {S: [(DISJ,)],
+        DISJ: [(CONJ,), (CONJ, DISJ)],
+        CONJ: [(PRIMITIVE,), (PRIMITIVE, CONJ)],
+        PRIMITIVE: [(TRUE,)], # expanded in DNF.__init__
+        NEG: [()],
+        TRUE: [()],
+        FALSE: [()]},
+    ]

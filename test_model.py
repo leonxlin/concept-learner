@@ -7,9 +7,10 @@ import numbers_world as test_world
 
 from model import BinaryFeatureLearnerModel as Model
 import mh
+import dnf
 
 # model = Model(test_world.world, outlier_param=2)
-model = Model(test_world.world)
+model = Model(test_world.world, rules=dnf.RULE_SETS[1])
 
 G = model.grammar
 f = G.random_formula()
@@ -23,7 +24,7 @@ print
 print "top formulas:"
 print
 
-model.sample_formulas(10000)
+model.sample_formulas(1000)
 for x in model.top_formulas():
     print x
     print G.prior(x[0])*model.likelihood(x[0])

@@ -8,7 +8,8 @@ import random
 
 class BinaryFeatureLearnerModel(object):
 
-    def __init__(self, world, outlier_param=float('Inf')):
+    def __init__(self, world, outlier_param=float('Inf'),
+            rules=dnf.RULE_SETS[0]):
         """exp(-outlier_param) is the probability that an observation
         is to be discounted"""
 
@@ -21,7 +22,7 @@ class BinaryFeatureLearnerModel(object):
             return lambda obj, e: feat in obj.features
         symbols = [dnf.PredicateSymbol(str(feat),
             feature_decider(feat)) for feat in world.features]
-        self.grammar = dnf.DNF(symbols)
+        self.grammar = dnf.DNF(symbols, rules)
 
         self.samples = {} # {sample: count for each sample}
 
