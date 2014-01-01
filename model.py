@@ -56,7 +56,7 @@ class BinaryFeatureLearnerModel(object):
         return float(yes)/total
         
 
-    def top_formulas(self, k=5):
+    def top_formulas(self, k=10):
         """Return list of (formula, count) pairs for k most frequent
         formulas in self.samples"""
 
