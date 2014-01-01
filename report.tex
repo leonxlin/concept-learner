@@ -3,6 +3,7 @@
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage[]{natbib}
 \usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{booktabs}
 
 \newcommand{\titlesubtitle}[2]{\title{#1\\\vspace{2mm}\large #2}}
 
@@ -220,22 +221,51 @@ $P(F\mid D)$.
 
 \section{Model performance on the categories of Medin and Schaffer}
 
-\citet{medin}
+As a sanity check we apply the model to a certain world of objects
+proposed by \citet{medin}
+and compare it to responses from humans 
+gathered by \citet{nosofsky},
+ though they
+do not assume strong sampling.
+
+The results are shown in figure~\ref{medindata}.
+The fit between our model and the human data is $R^2 = 0.95$.
 
 
-Results are presented in Table~\ref{tab1}.
-
-\begin{table}[!htb]
-\caption{Sample table.}\label{tab1}
-\begin{tabular}{ccc}
-\hline\\[-1.5ex]
-AAA & BBB & CCC \\[0.5ex]
-\hline\\[-1.5ex]
-1.0 & 2.0 & 3.0\\[0.5ex]
-1.0 & 2.0 & 3.0\\[0.5ex]
-\hline
-\end{tabular}
-\end{table}
+\begin{figure}
+\centering
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill} } cccc}
+	\toprule
+	Object & Features & Human & Model \\ \midrule
+	A1 & 0001 & 0.77 & 0.79 \\
+	A2 & 0101 & 0.78 & 0.79 \\
+	A3 & 0100 & 0.83 & 0.87 \\
+	A4 & 0010 & 0.64 & 0.57 \\
+	A5 & 1000 & 0.61 & 0.54 \\ \midrule
+	B1 & 0011 & 0.39 & 0.49 \\
+	B2 & 1001 & 0.41 & 0.46 \\
+	B3 & 1110 & 0.21 & 0.26 \\
+	B4 & 1111 & 0.15 & 0.18 \\ \midrule
+	T1 & 0110 & 0.56 & 0.57 \\
+	T2 & 0111 & 0.41 & 0.49 \\
+	T3 & 0000 & 0.82 & 0.87 \\
+	T4 & 1101 & 0.40 & 0.46 \\
+	T5 & 1010 & 0.32 & 0.26 \\
+	T6 & 1100 & 0.53 & 0.54 \\
+	T7 & 1011 & 0.20 & 0.18 \\\bottomrule
+\end{tabular*}
+\bigskip\mbox{}
+\caption{Objects and features in a world proposed by \citet{medin},
+	with human data
+	(recognition rates) from \citet{nosofsky} and the
+	generalization probabilities of our model ($b=1.3$).
+	There are four possible features, and the features each
+	object exhibits are indicated with binary strings (1 for yes
+	and 0 for no). The objects A1--A5 are observed to be
+	examples of the concept; the objects B1--B4 are observed
+	to not be examples of the concept.}
+\label{medindata}
+\end{figure}
 
 
 \bibliography{report}
