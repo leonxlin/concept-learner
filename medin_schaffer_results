@@ -1,0 +1,105 @@
+using outlier parameter b = 1.3
+
+using rules
+{CONJ: [(True,), (P, CONJ)], True: [()], P: [(Primitive,), (!, Primitive)], Primitive: [], S: [(DISJ,)], False: [()], DISJ: [(False,), (CONJ, DISJ)], !: [()]}
+
+random formula:
+False
+{T5: False, T2: False, T3: False, T6: False, T4: False, T1: False, A1: False, B4: False, A3: False, T7: False, A2: False, B1: False, A5: False, B2: False, A4: False, B3: False}
+-15.8448712649
+
+top formulas:
+
+on sample 0
+on sample 1000
+on sample 2000
+on sample 3000
+on sample 4000
+on sample 5000
+on sample 6000
+on sample 7000
+on sample 8000
+on sample 9000
+on sample 10000
+on sample 11000
+on sample 12000
+on sample 13000
+on sample 14000
+on sample 15000
+on sample 16000
+on sample 17000
+on sample 18000
+on sample 19000
+on sample 20000
+on sample 21000
+on sample 22000
+on sample 23000
+on sample 24000
+on sample 25000
+on sample 26000
+on sample 27000
+on sample 28000
+on sample 29000
+(!0&True | False, 3378)
+6.57893797959e-08
+
+(!2&True | False, 3077)
+6.57893797959e-08
+
+(False, 1682)
+6.57097549378e-08
+
+(True | False, 1455)
+4.01847641372e-08
+
+(!3&True | False, 969)
+1.79296976384e-08
+
+(!0&!0&True | False, 535)
+8.77191730611e-09
+
+(True | True | False, 527)
+1.33949213791e-08
+
+(!2&!2&True | False, 455)
+8.77191730611e-09
+
+(True | True | True | False, 269)
+6.02771462059e-09
+
+(!0&!2&True | False, 238)
+4.651774329e-09
+
+0.87 T3
+0.87 A3
+0.79 A1
+0.79 A2
+0.57 A4
+0.57 T1
+0.54 T6
+0.54 A5
+0.49 T2
+0.49 B1
+0.46 T4
+0.46 B2
+0.26 B3
+0.26 T5
+0.18 B4
+0.18 T7
+
+0.79 A1
+0.79 A2
+0.87 A3
+0.57 A4
+0.54 A5
+0.49 B1
+0.46 B2
+0.26 B3
+0.18 B4
+0.57 T1
+0.49 T2
+0.87 T3
+0.46 T4
+0.26 T5
+0.54 T6
+0.18 T7
