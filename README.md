@@ -3,8 +3,6 @@ concept-learner
 
 Final project for 9.66 Computational Cognitive Science.
 
-This didn't turn out so well...
-
 Instructions
 ------------
 
