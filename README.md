@@ -1,7 +1,8 @@
 concept-learner
 ===============
 
-Final project for 9.66 Computational Cognitive Science.
+Final project for 9.66 Computational Cognitive Science. See
+`report.pdf`.
 
 Instructions
 ------------
