@@ -81,11 +81,9 @@ RULE_SETS = [
         NEG: [()],
         TRUE: [()],
         FALSE: [()]},
-    {S: [(DISJ,)],
+    {S: [(DISJ,)], # no negatives
         DISJ: [(CONJ,), (CONJ, DISJ)],
         CONJ: [(PRIMITIVE,), (PRIMITIVE, CONJ)],
         PRIMITIVE: [(TRUE,)], # expanded in DNF.__init__
-        NEG: [()],
-        TRUE: [()],
-        FALSE: [()]},
+        TRUE: [()]}
     ]

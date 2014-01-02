@@ -1,16 +1,15 @@
 
 
 # Take your pick:
-#import animal_world as test_world
-import medin_schaffer_world as test_world
+import animal_world as test_world
+#import medin_schaffer_world as test_world
 #import numbers_world as test_world
 
 from model import BinaryFeatureLearnerModel as Model
-import mh
 import dnf
 
-outlier_param = 1.3
-rules = dnf.RULE_SETS[0]
+outlier_param = 3
+rules = dnf.RULE_SETS[2]
 
 print "using outlier parameter b =", outlier_param
 print

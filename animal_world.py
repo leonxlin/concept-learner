@@ -8,7 +8,7 @@ N_FEATURE = 102
 f = open('animals', 'r')
 animal_names = []
 features = []
-observed_pos_names = ["Alligator", "Squirrel"]
+observed_pos_names = ["Ant", "Ostrich", "Tiger"]
 
 animals = []
 observed_pos = []
